@@ -1,24 +1,34 @@
-#include <Adafruit_NeoPixel.h>
+#include <WS2812.h> // light_ws2812 from github
 
-#define PIN 7
+#define outputPin 7
+#define LEDCount 17
 
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(129, PIN, NEO_GRB + NEO_KHZ800); //first number controls the amount of pixels you have (add 4 so the drip falls off the edge)
+WS2812 LED(LEDCount);
+cRGB value;
+
+byte intensity = 0;
+byte sign = 1;
 
 void setup() {
-  strip.begin();
-  strip.show(); // Initialize all pixels to 'off'
+  LED.setOutput(outputPin); // Digital Pin 7
+  LED.setColorOrderRGB();
 }
+
 void loop() {
   int p=1000;
   colorWipe(255, 0, 0, p); // Red
   colorWipe(0, 255, 0, p); // Green
   colorWipe(0, 0, 255, p); // Blue
 }
+
 void colorWipe(int r, int g, int b, int wait) {
-  for(int i=0; i<strip.numPixels(); i++) {
-      strip.setPixelColor(i, strip.Color(r/10,g/10,b/10));
+  for(int i=0; i<LEDCount; i++) {
+    value.b = b;
+    value.g = g;
+    value.r = r;
+    LED.set_crgb_at(i, value); // Set value at LED found at index 0
   }
-  strip.show();
+  LED.sync(); // Sends the data to the LEDs
   delay(wait);  
 }
 
