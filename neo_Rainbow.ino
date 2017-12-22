@@ -1,9 +1,9 @@
 #include <Adafruit_NeoPixel.h>
 
 #define PIN 12
-#define LEDCount 420
+#define LEDCount 20
 
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(LEDCount, PIN, NEO_GRB + NEO_KHZ800); //first number controls the amount of pixels you have (add 4 so the drip falls off the edge)
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(LEDCount, PIN, NEO_GRB + NEO_KHZ800,3); //first number controls the amount of pixels you have (add 4 so the drip falls off the edge)
 
 void setup() {
   strip.begin();
